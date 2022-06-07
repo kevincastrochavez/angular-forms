@@ -1,5 +1,5 @@
 import { Component, ViewChild } from "@angular/core";
-import { Form, NgForm } from "@angular/forms";
+import { NgForm } from "@angular/forms";
 
 @Component({
   selector: "app-root",
@@ -7,7 +7,7 @@ import { Form, NgForm } from "@angular/forms";
   styleUrls: ["./app.component.css"],
 })
 export class AppComponent {
-  @ViewChild("f") signupForm: Form;
+  @ViewChild("f") signupForm: NgForm;
   defaultQuestion: string = "pet";
   defaultGender: string = "female";
   answer: string = "";
@@ -15,12 +15,25 @@ export class AppComponent {
 
   suggestUserName() {
     const suggestedName = "Superuser";
-  }
 
-  // onSubmit(form: NgForm) {
-  //   console.log("Submitted");
-  //   console.log(form);
-  // }
+    // OVERRIDE WHOLE FORM CONTENT
+    // this.signupForm.setValue({
+    //   userData: {
+    //     username: suggestedName,
+    //     email: "",
+    //   },
+    //   secret: "pet",
+    //   questionAnswer: "",
+    //   gender: "female",
+    // });
+
+    // Updates just information passed
+    this.signupForm.form.patchValue({
+      userData: {
+        username: suggestedName,
+      },
+    });
+  }
 
   onSubmit() {
     console.log(this.signupForm);
